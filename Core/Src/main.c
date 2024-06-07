@@ -257,16 +257,16 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc)
+void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef* hadc) //Función de interrupción de ADC
 {
-  valor_AD = HAL_ADC_GetValue(&hadc1);
-  if (abs(valor_AD_prev - valor_AD) > 50)
+  valor_AD = HAL_ADC_GetValue(&hadc1); //Valor de conversión mas reciente
+  if (abs(valor_AD_prev - valor_AD) > 50) //Sólo si varió en mas de 50
   {
-	  sprintf(mensaje, "ADC CH7 value: %d. Max sample value: 4096\n\r", valor_AD);
-	  HAL_UART_Transmit(&huart3, (uint8_t*)mensaje, sizeof(mensaje), HAL_MAX_DELAY);
+	  sprintf(mensaje, "ADC CH7 value: %d. Max sample value: 4096\n\r", valor_AD); //Conversión para poder mandar por UART
+	  HAL_UART_Transmit(&huart3, (uint8_t*)mensaje, sizeof(mensaje), HAL_MAX_DELAY); //Se envía mensaje por UART
   }
 
-  valor_AD_prev = valor_AD;
+  valor_AD_prev = valor_AD; //Se actualiza valor previo para comparación
 
 }
 /* USER CODE END 4 */
